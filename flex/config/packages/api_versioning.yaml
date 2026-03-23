@@ -1,0 +1,10 @@
+api_versioning:
+    # Enable or disable the bundle entirely.
+    enabled: true
+
+    # HTTP header read to resolve the client API version.
+    # header_name: X-API-Version
+
+    # Explicit list of version classes to load (optional — autoconfiguration via
+    # the api_versioning.version tag is used when left empty).
+    # versions: []

@@ -13,7 +13,8 @@ class ApiVersioningKernelListener
 {
     public function __construct(
         private readonly ApiVersionEventManager $manager,
-    ) {}
+    ) {
+    }
 
     public function onKernelRequest(RequestEvent $event): void
     {
@@ -21,7 +22,7 @@ class ApiVersioningKernelListener
             return;
         }
 
-        $request = $event->getRequest();
+        $request   = $event->getRequest();
         $routeName = $request->attributes->get('_route', '');
 
         $context = new RouteContext($routeName);
@@ -34,8 +35,8 @@ class ApiVersioningKernelListener
             return;
         }
 
-        $request = $event->getRequest();
-        $response = $event->getResponse();
+        $request   = $event->getRequest();
+        $response  = $event->getResponse();
         $routeName = $request->attributes->get('_route', '');
 
         $context = new RouteContext($routeName);

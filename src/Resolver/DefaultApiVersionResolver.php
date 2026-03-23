@@ -11,7 +11,8 @@ class DefaultApiVersionResolver implements ApiVersionResolverInterface
 {
     public function __construct(
         private readonly string $headerName = 'X-API-Version',
-    ) {}
+    ) {
+    }
 
     public function resolve(Request $request): ?string
     {

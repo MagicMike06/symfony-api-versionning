@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace ApiVersioning\Manager;
 
+use ApiVersioning\Context\RouteContext;
 use ApiVersioning\Contract\ApiVersionProviderInterface;
 use ApiVersioning\Contract\ApiVersionResolverInterface;
-use ApiVersioning\Context\RouteContext;
 use ApiVersioning\Event\AfterVersionRequestEvent;
 use ApiVersioning\Event\AfterVersionResponseEvent;
 use ApiVersioning\Event\ApiVersionEvents;
@@ -22,7 +22,8 @@ class ApiVersionEventManager
         private readonly ApiVersionProviderInterface $provider,
         private readonly ApiVersionResolverInterface $resolver,
         private readonly EventDispatcherInterface $eventDispatcher,
-    ) {}
+    ) {
+    }
 
     public function handleRequest(RouteContext $context, Request $request): void
     {
@@ -31,9 +32,9 @@ class ApiVersionEventManager
             return;
         }
 
-        $versions = array_filter(
+        $versions = \array_filter(
             $this->provider->getVersions(),
-            static fn ($version) => version_compare($version->getName(), $currentVersion, '>'),
+            static fn ($version) => \version_compare($version->getName(), $currentVersion, '>'),
         );
 
         foreach ($versions as $version) {
@@ -58,12 +59,12 @@ class ApiVersionEventManager
             return;
         }
 
-        $versions = array_filter(
+        $versions = \array_filter(
             $this->provider->getVersions(),
-            static fn ($version) => version_compare($version->getName(), $currentVersion, '>'),
+            static fn ($version) => \version_compare($version->getName(), $currentVersion, '>'),
         );
 
-        $versions = array_reverse(array_values($versions));
+        $versions = \array_reverse(\array_values($versions));
 
         foreach ($versions as $version) {
             $this->eventDispatcher->dispatch(

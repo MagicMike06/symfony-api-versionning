@@ -4,17 +4,12 @@ declare(strict_types=1);
 
 namespace ApiVersioning\Tests\Unit\Manager;
 
-use ApiVersioning\Contract\ApiVersionInterface;
 use ApiVersioning\Context\RouteContext;
-use ApiVersioning\Event\AfterVersionRequestEvent;
-use ApiVersioning\Event\AfterVersionResponseEvent;
+use ApiVersioning\Contract\ApiVersionInterface;
 use ApiVersioning\Event\ApiVersionEvents;
-use ApiVersioning\Event\BeforeVersionRequestEvent;
-use ApiVersioning\Event\BeforeVersionResponseEvent;
 use ApiVersioning\Manager\ApiVersionEventManager;
 use ApiVersioning\Provider\DefaultApiVersionProvider;
 use ApiVersioning\Resolver\DefaultApiVersionResolver;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,10 +23,18 @@ class ApiVersionEventManagerTest extends TestCase
             public function __construct(
                 private readonly string $name,
                 private array &$calls,
-            ) {}
+            ) {
+            }
 
-            public function getName(): string { return $this->name; }
-            public function getDescription(): string { return 'Version ' . $this->name; }
+            public function getName(): string
+            {
+                return $this->name;
+            }
+
+            public function getDescription(): string
+            {
+                return 'Version ' . $this->name;
+            }
 
             public function onRequest(RouteContext $context, Request $request): void
             {
@@ -47,10 +50,10 @@ class ApiVersionEventManagerTest extends TestCase
 
     public function testHandleRequestDoesNothingWhenResolverReturnsNull(): void
     {
-        $calls = [];
-        $version = $this->makeVersion('2.0.0', $calls);
-        $provider = new DefaultApiVersionProvider([$version]);
-        $resolver = new DefaultApiVersionResolver('X-API-Version');
+        $calls      = [];
+        $version    = $this->makeVersion('2.0.0', $calls);
+        $provider   = new DefaultApiVersionProvider([$version]);
+        $resolver   = new DefaultApiVersionResolver('X-API-Version');
         $dispatcher = $this->createMock(EventDispatcherInterface::class);
         $dispatcher->expects($this->never())->method('dispatch');
 
@@ -65,12 +68,12 @@ class ApiVersionEventManagerTest extends TestCase
     public function testOnlyVersionsGreaterThanCurrentReceiveOnRequest(): void
     {
         $calls = [];
-        $v100 = $this->makeVersion('1.0.0', $calls);
-        $v200 = $this->makeVersion('2.0.0', $calls);
-        $v300 = $this->makeVersion('3.0.0', $calls);
+        $v100  = $this->makeVersion('1.0.0', $calls);
+        $v200  = $this->makeVersion('2.0.0', $calls);
+        $v300  = $this->makeVersion('3.0.0', $calls);
 
-        $provider = new DefaultApiVersionProvider([$v100, $v200, $v300]);
-        $resolver = new DefaultApiVersionResolver('X-API-Version');
+        $provider   = new DefaultApiVersionProvider([$v100, $v200, $v300]);
+        $resolver   = new DefaultApiVersionResolver('X-API-Version');
         $dispatcher = $this->createMock(EventDispatcherInterface::class);
         $dispatcher->method('dispatch')->willReturnArgument(0);
 
@@ -87,12 +90,12 @@ class ApiVersionEventManagerTest extends TestCase
     public function testOnRequestCalledInAscendingOrder(): void
     {
         $calls = [];
-        $v200 = $this->makeVersion('2.0.0', $calls);
-        $v300 = $this->makeVersion('3.0.0', $calls);
-        $v400 = $this->makeVersion('4.0.0', $calls);
+        $v200  = $this->makeVersion('2.0.0', $calls);
+        $v300  = $this->makeVersion('3.0.0', $calls);
+        $v400  = $this->makeVersion('4.0.0', $calls);
 
-        $provider = new DefaultApiVersionProvider([$v400, $v200, $v300]);
-        $resolver = new DefaultApiVersionResolver('X-API-Version');
+        $provider   = new DefaultApiVersionProvider([$v400, $v200, $v300]);
+        $resolver   = new DefaultApiVersionResolver('X-API-Version');
         $dispatcher = $this->createMock(EventDispatcherInterface::class);
         $dispatcher->method('dispatch')->willReturnArgument(0);
 
@@ -109,12 +112,12 @@ class ApiVersionEventManagerTest extends TestCase
     public function testOnResponseCalledInDescendingOrder(): void
     {
         $calls = [];
-        $v200 = $this->makeVersion('2.0.0', $calls);
-        $v300 = $this->makeVersion('3.0.0', $calls);
-        $v400 = $this->makeVersion('4.0.0', $calls);
+        $v200  = $this->makeVersion('2.0.0', $calls);
+        $v300  = $this->makeVersion('3.0.0', $calls);
+        $v400  = $this->makeVersion('4.0.0', $calls);
 
-        $provider = new DefaultApiVersionProvider([$v400, $v200, $v300]);
-        $resolver = new DefaultApiVersionResolver('X-API-Version');
+        $provider   = new DefaultApiVersionProvider([$v400, $v200, $v300]);
+        $resolver   = new DefaultApiVersionResolver('X-API-Version');
         $dispatcher = $this->createMock(EventDispatcherInterface::class);
         $dispatcher->method('dispatch')->willReturnArgument(0);
 
@@ -132,18 +135,19 @@ class ApiVersionEventManagerTest extends TestCase
     public function testEventsDispatchedInCorrectOrderForRequest(): void
     {
         $calls = [];
-        $v200 = $this->makeVersion('2.0.0', $calls);
+        $v200  = $this->makeVersion('2.0.0', $calls);
 
         $provider = new DefaultApiVersionProvider([$v200]);
         $resolver = new DefaultApiVersionResolver('X-API-Version');
 
         $dispatchedEvents = [];
-        $dispatcher = $this->createMock(EventDispatcherInterface::class);
+        $dispatcher       = $this->createMock(EventDispatcherInterface::class);
         $dispatcher->method('dispatch')->willReturnCallback(
-            function (object $event, string $eventName) use (&$dispatchedEvents): object {
+            static function (object $event, string $eventName) use (&$dispatchedEvents): object {
                 $dispatchedEvents[] = $eventName;
+
                 return $event;
-            }
+            },
         );
 
         $manager = new ApiVersionEventManager($provider, $resolver, $dispatcher);
@@ -162,18 +166,19 @@ class ApiVersionEventManagerTest extends TestCase
     public function testEventsDispatchedInCorrectOrderForResponse(): void
     {
         $calls = [];
-        $v200 = $this->makeVersion('2.0.0', $calls);
+        $v200  = $this->makeVersion('2.0.0', $calls);
 
         $provider = new DefaultApiVersionProvider([$v200]);
         $resolver = new DefaultApiVersionResolver('X-API-Version');
 
         $dispatchedEvents = [];
-        $dispatcher = $this->createMock(EventDispatcherInterface::class);
+        $dispatcher       = $this->createMock(EventDispatcherInterface::class);
         $dispatcher->method('dispatch')->willReturnCallback(
-            function (object $event, string $eventName) use (&$dispatchedEvents): object {
+            static function (object $event, string $eventName) use (&$dispatchedEvents): object {
                 $dispatchedEvents[] = $eventName;
+
                 return $event;
-            }
+            },
         );
 
         $manager = new ApiVersionEventManager($provider, $resolver, $dispatcher);

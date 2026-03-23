@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace ApiVersioning\DependencyInjection;
 
 use ApiVersioning\Contract\ApiVersionInterface;
-use ApiVersioning\Maker\MakeApiVersion;
 use Symfony\Bundle\MakerBundle\Maker\AbstractMaker;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -17,7 +16,7 @@ class ApiVersioningExtension extends Extension
     public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
+        $config        = $this->processConfiguration($configuration, $configs);
 
         if (!$config['enabled']) {
             return;
@@ -32,8 +31,20 @@ class ApiVersioningExtension extends Extension
         $container->registerForAutoconfiguration(ApiVersionInterface::class)
             ->addTag('api_versioning.version');
 
-        if (class_exists(AbstractMaker::class)) {
+        if (\class_exists(AbstractMaker::class)) {
             $loader->load('maker.yaml');
+        }
+
+        if ($container->hasDefinition('profiler')) {
+            $loader->load('profiler.yaml');
+
+            if ($container->hasDefinition('twig.loader.filesystem')) {
+                $container->getDefinition('twig.loader.filesystem')
+                    ->addMethodCall('addPath', [
+                        \dirname(__DIR__) . '/Resources/views',
+                        'ApiVersioning',
+                    ]);
+            }
         }
     }
 

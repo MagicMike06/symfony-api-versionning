@@ -17,8 +17,8 @@ class DefaultApiVersionProvider implements ApiVersionProviderInterface
      */
     public function __construct(iterable $versions)
     {
-        $this->versions = iterator_to_array($versions, false);
-        usort($this->versions, static fn (ApiVersionInterface $a, ApiVersionInterface $b) => version_compare($a->getName(), $b->getName()));
+        $this->versions = \iterator_to_array($versions, false);
+        \usort($this->versions, static fn (ApiVersionInterface $a, ApiVersionInterface $b) => \version_compare($a->getName(), $b->getName()));
     }
 
     public function getVersions(): array

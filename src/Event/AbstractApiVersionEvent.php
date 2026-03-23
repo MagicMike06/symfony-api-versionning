@@ -13,5 +13,6 @@ abstract class AbstractApiVersionEvent extends Event
         public readonly string $versionName,
         public readonly string $versionDescription,
         public readonly RouteContext $routeContext,
-    ) {}
+    ) {
+    }
 }

@@ -57,12 +57,12 @@ class MakeApiVersion extends AbstractMaker
             'What version number do you want to create? (semver, e.g. 2.0.0)',
             null,
             static function (?string $value): string {
-                if (!$value || !preg_match('/^\d+\.\d+\.\d+$/', $value)) {
+                if (!$value || !\preg_match('/^\d+\.\d+\.\d+$/', $value)) {
                     throw new \InvalidArgumentException('Version must follow semver format X.Y.Z (e.g. 2.0.0).');
                 }
 
                 return $value;
-            }
+            },
         );
 
         $input->setArgument('version', $version);
@@ -72,22 +72,22 @@ class MakeApiVersion extends AbstractMaker
     {
         $version = $input->getArgument('version');
 
-        if (!preg_match('/^\d+\.\d+\.\d+$/', $version)) {
+        if (!\preg_match('/^\d+\.\d+\.\d+$/', $version)) {
             throw new \InvalidArgumentException(\sprintf('Version "%s" must follow semver format X.Y.Z (e.g. 2.0.0).', $version));
         }
 
-        $className = 'V' . str_replace('.', '', $version);
+        $className        = 'V' . \str_replace('.', '', $version);
         $classNameDetails = $generator->createClassNameDetails($className, 'ApiVersion\\');
 
-        $fqcn = $classNameDetails->getFullName();
-        $namespace = substr($fqcn, 0, strrpos($fqcn, '\\'));
+        $fqcn      = $classNameDetails->getFullName();
+        $namespace = \substr($fqcn, 0, \strrpos($fqcn, '\\'));
 
         $generator->generateClass(
             $fqcn,
             __DIR__ . '/../Resources/skeleton/ApiVersion.tpl.php',
             [
-                'version' => $version,
-                'namespace' => $namespace,
+                'version'    => $version,
+                'namespace'  => $namespace,
                 'class_name' => $classNameDetails->getShortName(),
             ],
         );

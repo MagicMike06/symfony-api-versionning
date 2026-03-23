@@ -1,0 +1,8 @@
+services:
+  ApiVersioning\DataCollector\ApiVersionDataCollector:
+    arguments:
+      $headerName: '%api_versioning.header_name%'
+      $provider: '@ApiVersioning\Contract\ApiVersionProviderInterface'
+    tags:
+      - { name: kernel.event_subscriber }
+      - { name: data_collector, template: '@ApiVersioning/Collector/api_version.html.twig', id: 'api_versioning', priority: 255 }

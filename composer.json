@@ -3,10 +3,11 @@
   "description": "Symfony bundle for incremental API versioning",
   "type": "library",
   "license": "MIT",
+  "version": "0.0.1",
   "authors": [
     {
       "name": "Michael ATTIAS",
-      "email": ""
+      "email": "michael@example.com"
     }
   ],
   "keywords": ["symfony", "api", "versioning", "bundle"],
@@ -21,7 +22,8 @@
   "require-dev": {
     "phpunit/phpunit": "^11.0",
     "symfony/http-foundation": ">=7.4",
-    "symfony/maker-bundle": "^1.0"
+    "symfony/maker-bundle": "^1.0",
+    "friendsofphp/php-cs-fixer": "^3.94"
   },
   "suggest": {
     "symfony/maker-bundle": "Required to use the make:api-version command"
@@ -36,9 +38,17 @@
       "ApiVersioning\\Tests\\": "tests/"
     }
   },
+  "scripts": {
+    "cs-fix": "php-cs-fixer fix --diff",
+    "cs-check": "php-cs-fixer fix --dry-run --diff"
+  },
   "extra": {
     "symfony": {
-      "require": ">=7.4"
+      "require": ">=7.4",
+      "endpoint": [
+        "https://api.github.com/repos/magic-mike/symfony-api-versionning/contents/flex/index.json",
+        "flex://defaults"
+      ]
     }
   }
 }

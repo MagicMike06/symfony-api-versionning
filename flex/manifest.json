@@ -1,0 +1,8 @@
+{
+    "bundles": {
+        "ApiVersioning\\ApiVersioningBundle": ["all"]
+    },
+    "copy-from-recipe": {
+        "config/packages/api_versioning.yaml": "%CONFIG_DIR%/packages/api_versioning.yaml"
+    }
+}

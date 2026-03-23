@@ -1,0 +1,7 @@
+{
+    "recipes": {
+        "magic-mike/symfony-api-versionning": ["0.0"]
+    },
+    "branch": "main",
+    "is_contrib": true
+}

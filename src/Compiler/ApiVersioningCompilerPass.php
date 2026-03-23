@@ -35,9 +35,9 @@ class ApiVersioningCompilerPass implements CompilerPassInterface
         }
 
         $taggedServices = $container->findTaggedServiceIds('api_versioning.version');
-        $references = array_map(
+        $references     = \array_map(
             static fn (string $id) => new Reference($id),
-            array_keys($taggedServices),
+            \array_keys($taggedServices),
         );
 
         $container->getDefinition(DefaultApiVersionProvider::class)
