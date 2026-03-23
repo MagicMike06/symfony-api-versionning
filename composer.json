@@ -46,7 +46,7 @@
     "symfony": {
       "require": ">=7.4",
       "endpoint": [
-        "https://api.github.com/repos/magic-mike/symfony-api-versionning/contents/flex/index.json",
+        "https://api.github.com/repos/MagicMike06/symfony-api-versionning/contents/flex/index.json",
         "flex://defaults"
       ]
     }
