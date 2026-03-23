@@ -1,0 +1,27 @@
+services:
+  ApiVersioning\Provider\DefaultApiVersionProvider:
+    arguments:
+      - !tagged_iterator api_versioning.version
+
+  ApiVersioning\Resolver\DefaultApiVersionResolver:
+    arguments:
+      $headerName: '%api_versioning.header_name%'
+
+  ApiVersioning\Manager\ApiVersionEventManager:
+    arguments:
+      $provider: '@ApiVersioning\Provider\DefaultApiVersionProvider'
+      $resolver: '@ApiVersioning\Resolver\DefaultApiVersionResolver'
+      $eventDispatcher: '@event_dispatcher'
+
+  ApiVersioning\EventListener\ApiVersioningKernelListener:
+    arguments:
+      $manager: '@ApiVersioning\Manager\ApiVersionEventManager'
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: -10 }
+      - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse, priority: 0 }
+
+  ApiVersioning\Contract\ApiVersionProviderInterface:
+    alias: ApiVersioning\Provider\DefaultApiVersionProvider
+
+  ApiVersioning\Contract\ApiVersionResolverInterface:
+    alias: ApiVersioning\Resolver\DefaultApiVersionResolver
