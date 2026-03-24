@@ -1,4 +1,4 @@
 services:
-  ApiVersioning\Maker\MakeApiVersion:
+  MagicMike\ApiVersioning\Maker\MakeApiVersion:
     tags:
       - { name: maker.command }

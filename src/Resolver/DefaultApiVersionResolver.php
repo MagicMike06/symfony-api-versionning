@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace ApiVersioning\Resolver;
+namespace MagicMike\ApiVersioning\Resolver;
 
-use ApiVersioning\Contract\ApiVersionResolverInterface;
+use MagicMike\ApiVersioning\Contract\ApiVersionResolverInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultApiVersionResolver implements ApiVersionResolverInterface

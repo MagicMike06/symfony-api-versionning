@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ApiVersioning\Maker;
+namespace MagicMike\ApiVersioning\Maker;
 
 use Symfony\Bundle\MakerBundle\ConsoleStyle;
 use Symfony\Bundle\MakerBundle\DependencyBuilder;

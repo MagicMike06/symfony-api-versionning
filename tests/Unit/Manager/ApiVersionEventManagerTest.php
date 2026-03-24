@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace ApiVersioning\Tests\Unit\Manager;
+namespace MagicMike\ApiVersioning\Tests\Unit\Manager;
 
-use ApiVersioning\Context\RouteContext;
-use ApiVersioning\Contract\ApiVersionInterface;
-use ApiVersioning\Event\ApiVersionEvents;
-use ApiVersioning\Manager\ApiVersionEventManager;
-use ApiVersioning\Provider\DefaultApiVersionProvider;
-use ApiVersioning\Resolver\DefaultApiVersionResolver;
+use MagicMike\ApiVersioning\Context\RouteContext;
+use MagicMike\ApiVersioning\Contract\ApiVersionInterface;
+use MagicMike\ApiVersioning\Event\ApiVersionEvents;
+use MagicMike\ApiVersioning\Manager\ApiVersionEventManager;
+use MagicMike\ApiVersioning\Provider\DefaultApiVersionProvider;
+use MagicMike\ApiVersioning\Resolver\DefaultApiVersionResolver;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

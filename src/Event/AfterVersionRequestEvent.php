@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace ApiVersioning\Event;
+namespace MagicMike\ApiVersioning\Event;
 
-use ApiVersioning\Context\RouteContext;
+use MagicMike\ApiVersioning\Context\RouteContext;
 use Symfony\Component\HttpFoundation\Request;
 
 class AfterVersionRequestEvent extends AbstractApiVersionEvent

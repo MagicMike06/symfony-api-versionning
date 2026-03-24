@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace ApiVersioning\Tests\Unit\Resolver;
+namespace MagicMike\ApiVersioning\Tests\Unit\Resolver;
 
-use ApiVersioning\Resolver\DefaultApiVersionResolver;
+use MagicMike\ApiVersioning\Resolver\DefaultApiVersionResolver;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 

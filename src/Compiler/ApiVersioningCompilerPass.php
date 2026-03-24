@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace ApiVersioning\Compiler;
+namespace MagicMike\ApiVersioning\Compiler;
 
-use ApiVersioning\Provider\DefaultApiVersionProvider;
+use MagicMike\ApiVersioning\Provider\DefaultApiVersionProvider;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;

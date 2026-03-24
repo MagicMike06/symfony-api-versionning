@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ApiVersioning\EventListener;
+namespace MagicMike\ApiVersioning\EventListener;
 
-use ApiVersioning\Context\RouteContext;
-use ApiVersioning\Manager\ApiVersionEventManager;
+use MagicMike\ApiVersioning\Context\RouteContext;
+use MagicMike\ApiVersioning\Manager\ApiVersionEventManager;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 

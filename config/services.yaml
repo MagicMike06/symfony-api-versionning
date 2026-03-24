@@ -1,27 +1,27 @@
 services:
-  ApiVersioning\Provider\DefaultApiVersionProvider:
+  MagicMike\ApiVersioning\Provider\DefaultApiVersionProvider:
     arguments:
       - !tagged_iterator api_versioning.version
 
-  ApiVersioning\Resolver\DefaultApiVersionResolver:
+  MagicMike\ApiVersioning\Resolver\DefaultApiVersionResolver:
     arguments:
       $headerName: '%api_versioning.header_name%'
 
-  ApiVersioning\Manager\ApiVersionEventManager:
+  MagicMike\ApiVersioning\Manager\ApiVersionEventManager:
     arguments:
-      $provider: '@ApiVersioning\Provider\DefaultApiVersionProvider'
-      $resolver: '@ApiVersioning\Resolver\DefaultApiVersionResolver'
+      $provider: '@MagicMike\ApiVersioning\Provider\DefaultApiVersionProvider'
+      $resolver: '@MagicMike\ApiVersioning\Resolver\DefaultApiVersionResolver'
       $eventDispatcher: '@event_dispatcher'
 
-  ApiVersioning\EventListener\ApiVersioningKernelListener:
+  MagicMike\ApiVersioning\EventListener\ApiVersioningKernelListener:
     arguments:
-      $manager: '@ApiVersioning\Manager\ApiVersionEventManager'
+      $manager: '@MagicMike\ApiVersioning\Manager\ApiVersionEventManager'
     tags:
       - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: -10 }
       - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse, priority: 0 }
 
-  ApiVersioning\Contract\ApiVersionProviderInterface:
-    alias: ApiVersioning\Provider\DefaultApiVersionProvider
+  MagicMike\ApiVersioning\Contract\ApiVersionProviderInterface:
+    alias: MagicMike\ApiVersioning\Provider\DefaultApiVersionProvider
 
-  ApiVersioning\Contract\ApiVersionResolverInterface:
-    alias: ApiVersioning\Resolver\DefaultApiVersionResolver
+  MagicMike\ApiVersioning\Contract\ApiVersionResolverInterface:
+    alias: MagicMike\ApiVersioning\Resolver\DefaultApiVersionResolver

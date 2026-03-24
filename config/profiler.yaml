@@ -1,8 +1,8 @@
 services:
-  ApiVersioning\DataCollector\ApiVersionDataCollector:
+  MagicMike\ApiVersioning\Profiler\ApiVersionDataCollector:
     arguments:
       $headerName: '%api_versioning.header_name%'
-      $provider: '@ApiVersioning\Contract\ApiVersionProviderInterface'
+      $provider: '@MagicMike\ApiVersioning\Contract\ApiVersionProviderInterface'
     tags:
       - { name: kernel.event_subscriber }
-      - { name: data_collector, template: '@ApiVersioning/Collector/api_version.html.twig', id: 'api_versioning', priority: 255 }
+      - { name: data_collector, id: 'MagicMike\ApiVersioning\Profiler\ApiVersionDataCollector', priority: 255 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace <?= $namespace ?>;
 
-use ApiVersioning\Contract\ApiVersionInterface;
-use ApiVersioning\Context\RouteContext;
+use MagicMike\ApiVersioning\Contract\ApiVersionInterface;
+use MagicMike\ApiVersioning\Context\RouteContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

@@ -4,8 +4,8 @@
 
 Symfony bundle for **incremental API versioning**. Each `ApiVersionInterface` class describes only the delta introduced by one version. The bundle chains transformations automatically on `kernel.request` and `kernel.response`.
 
-Namespace root: `ApiVersioning\` → `src/`
-Test namespace: `ApiVersioning\Tests\` → `tests/`
+Namespace root: `MagicMike\ApiVersioning\` → `src/`
+Test namespace: `MagicMike\ApiVersioning\Tests\` → `tests/`
 
 ---
 
@@ -51,8 +51,8 @@ Events fire **per version**, not globally. Order: `BEFORE → transform → AFTE
 
 | Replace | Implement | Alias in services.yaml |
 |---|---|---|
-| Header resolver | `ApiVersionResolverInterface` | `ApiVersioning\Contract\ApiVersionResolverInterface` |
-| Version provider | `ApiVersionProviderInterface` | `ApiVersioning\Contract\ApiVersionProviderInterface` |
+| Header resolver | `ApiVersionResolverInterface` | `MagicMike\ApiVersioning\Contract\ApiVersionResolverInterface` |
+| Version provider | `ApiVersionProviderInterface` | `MagicMike\ApiVersioning\Contract\ApiVersionProviderInterface` |
 
 ---
 

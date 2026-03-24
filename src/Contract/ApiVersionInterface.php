@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace ApiVersioning\Contract;
+namespace MagicMike\ApiVersioning\Contract;
 
-use ApiVersioning\Context\RouteContext;
+use MagicMike\ApiVersioning\Context\RouteContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ApiVersioning\Provider;
+namespace MagicMike\ApiVersioning\Provider;
 
-use ApiVersioning\Contract\ApiVersionInterface;
-use ApiVersioning\Contract\ApiVersionProviderInterface;
+use MagicMike\ApiVersioning\Contract\ApiVersionInterface;
+use MagicMike\ApiVersioning\Contract\ApiVersionProviderInterface;
 
 class DefaultApiVersionProvider implements ApiVersionProviderInterface
 {

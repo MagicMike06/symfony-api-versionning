@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace ApiVersioning\Event;
+namespace MagicMike\ApiVersioning\Event;
 
-use ApiVersioning\Context\RouteContext;
+use MagicMike\ApiVersioning\Context\RouteContext;
 use Symfony\Contracts\EventDispatcher\Event;
 
 abstract class AbstractApiVersionEvent extends Event

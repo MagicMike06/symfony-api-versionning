@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace ApiVersioning\Tests\Unit\Provider;
+namespace MagicMike\ApiVersioning\Tests\Unit\Provider;
 
-use ApiVersioning\Context\RouteContext;
-use ApiVersioning\Contract\ApiVersionInterface;
-use ApiVersioning\Provider\DefaultApiVersionProvider;
+use MagicMike\ApiVersioning\Context\RouteContext;
+use MagicMike\ApiVersioning\Contract\ApiVersionInterface;
+use MagicMike\ApiVersioning\Provider\DefaultApiVersionProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

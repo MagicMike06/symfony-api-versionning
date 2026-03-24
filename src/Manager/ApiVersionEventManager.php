@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace ApiVersioning\Manager;
+namespace MagicMike\ApiVersioning\Manager;
 
-use ApiVersioning\Context\RouteContext;
-use ApiVersioning\Contract\ApiVersionProviderInterface;
-use ApiVersioning\Contract\ApiVersionResolverInterface;
-use ApiVersioning\Event\AfterVersionRequestEvent;
-use ApiVersioning\Event\AfterVersionResponseEvent;
-use ApiVersioning\Event\ApiVersionEvents;
-use ApiVersioning\Event\BeforeVersionRequestEvent;
-use ApiVersioning\Event\BeforeVersionResponseEvent;
+use MagicMike\ApiVersioning\Context\RouteContext;
+use MagicMike\ApiVersioning\Contract\ApiVersionProviderInterface;
+use MagicMike\ApiVersioning\Contract\ApiVersionResolverInterface;
+use MagicMike\ApiVersioning\Event\AfterVersionRequestEvent;
+use MagicMike\ApiVersioning\Event\AfterVersionResponseEvent;
+use MagicMike\ApiVersioning\Event\ApiVersionEvents;
+use MagicMike\ApiVersioning\Event\BeforeVersionRequestEvent;
+use MagicMike\ApiVersioning\Event\BeforeVersionResponseEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;

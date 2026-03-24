@@ -13,29 +13,32 @@
   "keywords": ["symfony", "api", "versioning", "bundle"],
   "require": {
     "php": ">=8.4",
-    "symfony/config": ">=7.4",
-    "symfony/dependency-injection": ">=7.4",
-    "symfony/event-dispatcher": ">=7.4",
-    "symfony/framework-bundle": ">=7.4",
-    "symfony/http-kernel": ">=7.4"
+    "symfony/config": "^7.4|^8.0",
+    "symfony/dependency-injection": "^7.4|^8.0",
+    "symfony/event-dispatcher": "^7.4|^8.0",
+    "symfony/framework-bundle": "^7.4|^8.0",
+    "symfony/http-kernel": "^7.4|^8.0",
+    "symfony/twig-bridge": "^7.0|^8.0",
+    "symfony/console": "^7.4|^8.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^11.0",
-    "symfony/http-foundation": ">=7.4",
+    "symfony/http-foundation": "^7.4|^8.0",
     "symfony/maker-bundle": "^1.0",
-    "friendsofphp/php-cs-fixer": "^3.94"
+    "friendsofphp/php-cs-fixer": "^3.94",
+    "symfony/web-profiler-bundle": "^8.0"
   },
   "suggest": {
     "symfony/maker-bundle": "Required to use the make:api-version command"
   },
   "autoload": {
     "psr-4": {
-      "ApiVersioning\\": "src/"
+      "MagicMike\\ApiVersioning\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "ApiVersioning\\Tests\\": "tests/"
+      "MagicMike\\ApiVersioning\\Tests\\": "tests/"
     }
   },
   "scripts": {
@@ -50,5 +53,8 @@
         "flex://defaults"
       ]
     }
+  },
+  "config": {
+    "sort-packages": true
   }
 }

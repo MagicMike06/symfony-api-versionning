@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ApiVersioning;
+namespace MagicMike\ApiVersioning;
 
-use ApiVersioning\Compiler\ApiVersioningCompilerPass;
-use ApiVersioning\DependencyInjection\ApiVersioningExtension;
+use MagicMike\ApiVersioning\Compiler\ApiVersioningCompilerPass;
+use MagicMike\ApiVersioning\DependencyInjection\ApiVersioningExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 

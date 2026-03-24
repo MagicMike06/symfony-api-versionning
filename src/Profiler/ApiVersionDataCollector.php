@@ -2,55 +2,56 @@
 
 declare(strict_types=1);
 
-namespace ApiVersioning\DataCollector;
+namespace MagicMike\ApiVersioning\Profiler;
 
-use ApiVersioning\Contract\ApiVersionProviderInterface;
-use ApiVersioning\Event\AbstractApiVersionEvent;
-use ApiVersioning\Event\ApiVersionEvents;
+use MagicMike\ApiVersioning\Contract\ApiVersionProviderInterface;
+use MagicMike\ApiVersioning\Event\AbstractApiVersionEvent;
+use MagicMike\ApiVersioning\Event\ApiVersionEvents;
+use Symfony\Bundle\FrameworkBundle\DataCollector\AbstractDataCollector;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
-class ApiVersionDataCollector extends DataCollector implements EventSubscriberInterface
+class ApiVersionDataCollector extends AbstractDataCollector implements EventSubscriberInterface
 {
     private array $pendingTimings = [];
 
     public function __construct(
-        private readonly string $headerName,
+        private readonly string                      $headerName,
         private readonly ApiVersionProviderInterface $provider,
-    ) {
+    )
+    {
         $this->reset();
     }
 
     public static function getSubscribedEvents(): array
     {
         return [
-            ApiVersionEvents::BEFORE_VERSION_REQUEST  => 'onBeforeTransformation',
-            ApiVersionEvents::AFTER_VERSION_REQUEST   => 'onAfterTransformation',
+            ApiVersionEvents::BEFORE_VERSION_REQUEST => 'onBeforeTransformation',
+            ApiVersionEvents::AFTER_VERSION_REQUEST => 'onAfterTransformation',
             ApiVersionEvents::BEFORE_VERSION_RESPONSE => 'onBeforeTransformation',
-            ApiVersionEvents::AFTER_VERSION_RESPONSE  => 'onAfterTransformation',
+            ApiVersionEvents::AFTER_VERSION_RESPONSE => 'onAfterTransformation',
         ];
     }
 
     public function onBeforeTransformation(AbstractApiVersionEvent $event, string $eventName): void
     {
-        $direction                  = \str_contains($eventName, 'request') ? 'request' : 'response';
-        $key                        = $direction . ':' . $event->versionName;
+        $direction = \str_contains($eventName, 'request') ? 'request' : 'response';
+        $key = $direction . ':' . $event->versionName;
         $this->pendingTimings[$key] = \microtime(true);
     }
 
     public function onAfterTransformation(AbstractApiVersionEvent $event, string $eventName): void
     {
-        $direction  = \str_contains($eventName, 'request') ? 'request' : 'response';
-        $key        = $direction . ':' . $event->versionName;
-        $start      = $this->pendingTimings[$key] ?? \microtime(true);
+        $direction = \str_contains($eventName, 'request') ? 'request' : 'response';
+        $key = $direction . ':' . $event->versionName;
+        $start = $this->pendingTimings[$key] ?? \microtime(true);
         $durationMs = (\microtime(true) - $start) * 1000;
 
         $this->data['transformations'][] = [
-            'version'     => $event->versionName,
+            'version' => $event->versionName,
             'description' => $event->versionDescription,
-            'direction'   => $direction,
+            'direction' => $direction,
             'duration_ms' => $durationMs,
         ];
 
@@ -59,16 +60,16 @@ class ApiVersionDataCollector extends DataCollector implements EventSubscriberIn
 
     public function collect(Request $request, Response $response, ?\Throwable $exception = null): void
     {
-        $resolvedVersion                = $request->headers->get($this->headerName);
+        $resolvedVersion = $request->headers->get($this->headerName);
         $this->data['resolved_version'] = $resolvedVersion ?: null;
-        $this->data['header_name']      = $this->headerName;
-        $this->data['route']            = $request->attributes->get('_route', '');
-        $this->data['was_versioned']    = $resolvedVersion !== null && $resolvedVersion !== '';
+        $this->data['header_name'] = $this->headerName;
+        $this->data['route'] = $request->attributes->get('_route', '');
+        $this->data['was_versioned'] = $resolvedVersion !== null && $resolvedVersion !== '';
 
         $registeredVersions = [];
         foreach ($this->provider->getVersions() as $version) {
             $registeredVersions[] = [
-                'name'        => $version->getName(),
+                'name' => $version->getName(),
                 'description' => $version->getDescription(),
             ];
         }
@@ -84,25 +85,20 @@ class ApiVersionDataCollector extends DataCollector implements EventSubscriberIn
     public function reset(): void
     {
         $this->data = [
-            'resolved_version'    => null,
-            'header_name'         => $this->headerName ?? 'X-API-Version',
-            'route'               => '',
-            'was_versioned'       => false,
+            'resolved_version' => null,
+            'header_name' => $this->headerName ?? 'X-API-Version',
+            'route' => '',
+            'was_versioned' => false,
             'registered_versions' => [],
-            'transformations'     => [],
-            'total_duration_ms'   => 0.0,
+            'transformations' => [],
+            'total_duration_ms' => 0.0,
         ];
         $this->pendingTimings = [];
     }
 
     public static function getTemplate(): ?string
     {
-        return '@ApiVersioning/Collector/api_version.html.twig';
-    }
-
-    public function getName(): string
-    {
-        return 'api_versioning';
+        return '@ApiVersioning/data_collector.html.twig';
     }
 
     public function getResolvedVersion(): ?string

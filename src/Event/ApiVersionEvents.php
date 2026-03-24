@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ApiVersioning\Event;
+namespace MagicMike\ApiVersioning\Event;
 
 final class ApiVersionEvents
 {

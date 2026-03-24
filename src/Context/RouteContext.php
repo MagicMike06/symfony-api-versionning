@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ApiVersioning\Context;
+namespace MagicMike\ApiVersioning\Context;
 
 final readonly class RouteContext
 {
